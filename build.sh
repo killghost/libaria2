@@ -45,7 +45,7 @@ if [ ! -f "libssh2-1.8.0.tar.gz" ]; then
 	curl -L -O http://libssh2.org/download/libssh2-1.8.0.tar.gz
 fi
 
-if [ ! -f "aria2-1.36.0.tar.xz" ]; then 
+if [ ! -f "aria2-1.35.0.tar.xz" ]; then 
 	curl -L -O https://github.com/aria2/aria2/releases/download/release-1.35.0/aria2-1.35.0.tar.gz
 fi
 
