@@ -17,8 +17,8 @@ export PREFIX=/usr/local/$HOST
 # downloads.
 # RUN sed -ie 's/archive\.ubuntu/jp.archive.ubuntu/g' /etc/apt/sources.list
 # 安装编译环境
-#apt-get update && \
-#apt-get install -y make binutils autoconf automake autotools-dev libtool pkg-config git curl dpkg-dev gcc-mingw-w64 autopoint libcppunit-dev libxml2-dev libgcrypt11-dev lzip
+# apt-get update && \
+# apt-get install -y make binutils autoconf automake autotools-dev libtool pkg-config git curl dpkg-dev gcc-mingw-w64 autopoint libcppunit-dev libxml2-dev libgcrypt11-dev lzip
 
 # 下载依赖库
 if [ ! -f "gmp-6.1.2.tar.lz" ]; then 
@@ -56,7 +56,7 @@ cd gmp-6.1.2 && \
 make -j 16 install
 
 # 动态编译 expat
-cd ..
+cd .. && \
 tar xf expat-2.2.8.tar.gz && \
 cd expat-2.2.8 && \
 ./configure --enable-shared --disable-static --prefix=$PREFIX --host=$HOST --build=`dpkg-architecture -qDEB_BUILD_GNU_TYPE` && \
