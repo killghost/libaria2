@@ -10,7 +10,7 @@ fi
 
 # 改成 x86_64-w64-mingw32 来编译64位版本
 # 改成 i686-w64-mingw32 来编译32位版本
-export HOST=$ARCH-w64-mingw32
+export HOST=i686-w64-mingw32
 export PREFIX=/usr/local/$HOST
 
 # It would be better to use nearest ubuntu archive mirror for faster
@@ -63,37 +63,45 @@ cd expat-2.2.8 && \
 make -j 16 install
 
 # 动态编译 sqlite3
-cd ..
+cd .. && \
 tar xf sqlite-autoconf-3290000.tar.gz && cd sqlite-autoconf-3290000 && \
 ./configure --enable-shared --disable-static --prefix=$PREFIX --host=$HOST --build=`dpkg-architecture -qDEB_BUILD_GNU_TYPE` && \
 make -j 16 install
 
 # 动态编译 zlib
-cd ..
+cd .. && \
 tar xf zlib-1.2.11.tar.gz && \
-cd zlib-1.2.11
-export BINARY_PATH=$PREFIX/bin
-export INCLUDE_PATH=$PREFIX/include
-export LIBRARY_PATH=$PREFIX/lib
-make -j 16 install -f win32/Makefile.gcc PREFIX=$HOST- SHARED_MODE=1
+    cd zlib-1.2.11 && \
+    CC=$HOST-gcc \
+    AR=$HOST-ar \
+    LD=$HOST-ld \
+    RANLIB=$HOST-ranlib \
+    STRIP=$HOST-strip \
+    ./configure \
+        --prefix=/usr/local/$HOST \
+        --libdir=/usr/local/$HOST/lib \
+        --includedir=/usr/local/$HOST/include \
+        --static && \
+    make install
+
 
 # 动态编译 c-ares
-cd ..
+cd .. && \
 tar xf c-ares-1.15.0.tar.gz && \
 cd c-ares-1.15.0 && \
 ./configure --enable-shared --disable-static --without-random --prefix=$PREFIX --host=$HOST --build=`dpkg-architecture -qDEB_BUILD_GNU_TYPE` LIBS="-lws2_32" && \
 make -j 16 install
 
 # 动态编译 libssh2
-cd ..
+cd .. && \
 tar xf libssh2-1.8.0.tar.gz && \
 cd libssh2-1.8.0 && \
 ./configure --enable-shared --disable-static --prefix=$PREFIX --host=$HOST --build=`dpkg-architecture -qDEB_BUILD_GNU_TYPE` --without-openssl --with-wincng LIBS="-lws2_32" && \
 make -j 16 install
 
 # 编译aria2
-cd ..
-tar xf aria2-1.35.0.tar.xz && \
+cd .. && \
+tar xf aria2-1.35.0.tar.gz && \
 cd aria2-1.35.0 && \
 autoreconf -i && \
 ./configure \
