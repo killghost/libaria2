@@ -34,15 +34,15 @@ if [ ! -f "sqlite-autoconf-3290000.tar.gz" ]; then
 fi
 
 if [ ! -f "zlib-1.2.11.tar.gz" ]; then 
-	curl -L -O http://prdownloads.sourceforge.net/libpng/zlib-1.2.11.tar.gz
+	curl -L -O http://zlib.net/zlib-1.2.11.tar.gz
 fi
 
-if [ ! -f "c-ares-1.14.0.tar.gz" ]; then 
-	curl -L -O https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
+if [ ! -f "c-ares-1.15.0.tar.gz" ]; then 
+	curl -L -O https://c-ares.haxx.se/download/c-ares-1.15.0.tar.gz
 fi
 
-if [ ! -f "libssh2-1.9.0-20190922.tar.gz" ]; then 
-	curl -L -O https://www.libssh2.org/snapshots/libssh2-1.9.0-20190922.tar.gz
+if [ ! -f "libssh2-1.8.0.tar.gz" ]; then 
+	curl -L -O http://libssh2.org/download/libssh2-1.8.0.tar.gz
 fi
 
 if [ ! -f "aria2-1.34.0.tar.xz" ]; then 
@@ -79,8 +79,8 @@ make -j 16 install -f win32/Makefile.gcc PREFIX=$HOST- SHARED_MODE=1
 
 # 动态编译 c-ares
 cd ..
-tar xf c-ares-1.14.0.tar.gz && \
-cd c-ares-1.14.0 && \
+tar xf c-ares-1.15.0.tar.gz && \
+cd c-ares-1.15.0 && \
 ./configure --enable-shared --disable-static --without-random --prefix=$PREFIX --host=$HOST --build=`dpkg-architecture -qDEB_BUILD_GNU_TYPE` LIBS="-lws2_32" && \
 make -j 16 install
 
