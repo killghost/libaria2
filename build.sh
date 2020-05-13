@@ -17,8 +17,8 @@ export PREFIX=/usr/local/$HOST
 # downloads.
 # RUN sed -ie 's/archive\.ubuntu/jp.archive.ubuntu/g' /etc/apt/sources.list
 # 安装编译环境
-apt-get update && \
-apt-get install -y make binutils autoconf automake autotools-dev libtool pkg-config git curl dpkg-dev gcc-mingw-w64 autopoint libcppunit-dev libxml2-dev libgcrypt11-dev lzip
+#apt-get update && \
+#apt-get install -y make binutils autoconf automake autotools-dev libtool pkg-config git curl dpkg-dev gcc-mingw-w64 autopoint libcppunit-dev libxml2-dev libgcrypt11-dev lzip
 
 # 下载依赖库
 if [ ! -f "gmp-6.1.2.tar.lz" ]; then 
@@ -45,8 +45,8 @@ if [ ! -f "libssh2-1.8.0.tar.gz" ]; then
 	curl -L -O http://libssh2.org/download/libssh2-1.8.0.tar.gz
 fi
 
-if [ ! -f "aria2-1.34.0.tar.xz" ]; then 
-	curl -L -O https://github.com/aria2/aria2/releases/download/release-1.34.0/aria2-1.34.0.tar.xz
+if [ ! -f "aria2-1.36.0.tar.xz" ]; then 
+	curl -L -O https://github.com/aria2/aria2/releases/download/release-1.35.0/aria2-1.35.0.tar.gz
 fi
 
 # 动态编译 gmp
@@ -86,15 +86,15 @@ make -j 16 install
 
 # 动态编译 libssh2
 cd ..
-tar xf libssh2-1.9.0-20190922.tar.gz && \
-cd libssh2-1.9.0-20190922 && \
+tar xf libssh2-1.8.0.tar.gz && \
+cd libssh2-1.8.0 && \
 ./configure --enable-shared --disable-static --prefix=$PREFIX --host=$HOST --build=`dpkg-architecture -qDEB_BUILD_GNU_TYPE` --without-openssl --with-wincng LIBS="-lws2_32" && \
 make -j 16 install
 
 # 编译aria2
 cd ..
-tar xf aria2-1.34.0.tar.xz && \
-cd aria2-1.34.0 && \
+tar xf aria2-1.35.0.tar.xz && \
+cd aria2-1.35.0 && \
 autoreconf -i && \
 ./configure \
     --host=$HOST \
