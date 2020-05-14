@@ -79,6 +79,7 @@ tar xf zlib-1.2.11.tar.gz && \
     STRIP=$HOST-strip \
     ./configure \
         --prefix=/usr/local/$HOST \
+	--host=$HOST  \
         --libdir=/usr/local/$HOST/lib \
         --includedir=/usr/local/$HOST/include \
         --static && \
