@@ -107,22 +107,27 @@ autoreconf -i && \
 ./configure \
     --host=$HOST \
     --prefix=$PREFIX \
-    --without-included-gettext \
-    --disable-nls \
-    --with-libcares \
+    --with-cppunit-prefix=$PREFIX \
+    --enable-static \
+    --enable-shared \
     --without-gnutls \
-    --with-openssl \
-    --with-sqlite3 \
-    --without-libxml2 \
-    --with-libexpat \
-    --with-libz \
-    --with-libgmp \
-    --with-libssh2 \
+    --without-openssl \
+    --with-wintls \
+    --enable-libaria2 \
+    --disable-bittorrent \
+    --without-libssh2 \
+    --disable-metalink \
+    --without-cppunit \
+    --without-libares \
+    --without-libcares \
+    --enable-threads=win32 \
     --without-libgcrypt \
     --without-libnettle \
-    --with-cppunit-prefix=$PREFIX \
-    --enable-libaria2 \
-    ARIA2_STATIC=no \
+    --without-included-gettext \
+    --disable-nls \
+    --without-sqlite3 \
+    --without-libxml2 \
+    --without-libexpat \
     CPPFLAGS="-I$PREFIX/include" \
     LDFLAGS="-L$PREFIX/lib" \
     PKG_CONFIG="/usr/bin/pkg-config" \
